@@ -11,15 +11,44 @@ public class ArrayTest {
 
     public static void main(String[] args) {
         Random rand = new Random();
-        for (int i = 0; i < 5; i++) {
-            int[] arr1 = new int[rand.nextInt(30)];
-            int[] arr2 = insertRandomValues(arr1);
-            System.out.println(ArrayTest.print(arr2));
-            arr2 = mergeSort(arr2, arr2.length);
-            System.out.println(ArrayTest.print(arr2));
 
+        int test = 2;
+
+        switch (test) {
+            case 0: //Test merge
+                for (int i = 0; i < 5; i++) {
+                    int[] arr1 = new int[rand.nextInt(30)];
+                    int[] arr2 = insertRandomValues(arr1);
+                    System.out.println(ArrayTest.print(arr2));
+                    arr2 = mergeSort(arr2, arr2.length);        //mergesort
+                    System.out.println(ArrayTest.print(arr2));
+
+                }
+                break;
+            case 1:
+                for (int i = 0; i < 5; i++) {
+                    int[] arr1 = new int[rand.nextInt(30)];
+                    int[] arr2 = insertRandomValues(arr1);
+                    System.out.println(ArrayTest.print(arr2));
+                    //arr2 = heapSort(arr2, arr2.length);        //mergesort
+                    System.out.println(ArrayTest.print(arr2));
+
+                }
+                break;
+            case 2:
+                for (int i = 0; i < 5; i++) {
+                    int[] arr1 = new int[rand.nextInt(30)];
+                    int[] arr2 = insertRandomValues(arr1);
+                    System.out.println(ArrayTest.print(arr2));
+                    arr2 = bubbleSort(arr2);                    //bubblesort
+                    System.out.println(ArrayTest.print(arr2));
+
+                }
+                break;
         }
     }
+
+    //********** Easy Playa Metoder ***************
 
     public static int[] insertRandomValues(int[] arr) {
         Random rand = new Random();
@@ -42,6 +71,7 @@ public class ArrayTest {
         }
         return str;
     }
+    //*********************************************
 
     //************ MERGE *************
     public static int[] mergeSort(int[] arr, int length) {
@@ -75,17 +105,77 @@ public class ArrayTest {
             }
             merged++;
         }
-        while (idxRight < right.length){
+        while (idxRight < right.length) {
             done[merged] = right[idxRight];
             merged++;
             idxRight++;
         }
-        while (idxLeft < left.length){
+        while (idxLeft < left.length) {
             done[merged] = left[idxLeft];
             merged++;
             idxLeft++;
         }
         return done;
     }
-    //*************** MERGE SLUT *************
+    //*********************************************
+
+    //***************** BUBBLE *******************
+
+    public static int[] bubbleSort(int[] arr) {
+        if (arr.length <= 1) {
+            return arr;
+        }
+        boolean swapped;
+        do {
+            swapped = false;
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int tmp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = tmp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+        return arr;
+    }
+
+    //*********************************************
+
+    //*************** INSERTION *****************
+
+    public static int[] insertionSort(int[] arr) {
+        if (arr.length <= 1) {
+            return arr;
+        }
+        int[] retArr = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            int j = i;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
