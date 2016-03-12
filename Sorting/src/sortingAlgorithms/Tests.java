@@ -1,56 +1,44 @@
 package sortingAlgorithms;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by Morpheus on 2016-03-09.
  */
-public class ArrayTest {
+public class Tests {
 
     public static void main(String[] args) {
         Random rand = new Random();
 
-        int test = 2;
+        int test = 0;
 
-        switch (test) {
-            case 0: //Test merge
-                for (int i = 0; i < 5; i++) {
-                    int[] arr1 = new int[rand.nextInt(30)];
-                    int[] arr2 = insertRandomValues(arr1);
-                    System.out.println(ArrayTest.print(arr2));
-                    arr2 = mergeSort(arr2, arr2.length);        //mergesort
-                    System.out.println(ArrayTest.print(arr2));
+        for (int i = 0; i < 5; i++) {
+            int[] arr1 = new int[rand.nextInt(30)];
+            int[] arr2 = insertRandomValues(arr1);
+            System.out.println(Tests.print(arr2));
+            switch (test) {
+                case 0:
+                    arr2 = mergeSort(arr2, arr2.length);            //mergesort
+                    break;
+                case 1:
+                    //arr2 = heapSort(arr2, arr2.length);           //heap
+                    break;
+                case 2:
+                    arr2 = bubbleSort(arr2);                        //bubblesort
+                    break;
+                case 3:
+                    arr2 = insertionSort(arr2);                     //insertionSort
+                    break;
+            }
+            System.out.println(Tests.print(arr2));
 
-                }
-                break;
-            case 1:
-                for (int i = 0; i < 5; i++) {
-                    int[] arr1 = new int[rand.nextInt(30)];
-                    int[] arr2 = insertRandomValues(arr1);
-                    System.out.println(ArrayTest.print(arr2));
-                    //arr2 = heapSort(arr2, arr2.length);        //mergesort
-                    System.out.println(ArrayTest.print(arr2));
-
-                }
-                break;
-            case 2:
-                for (int i = 0; i < 5; i++) {
-                    int[] arr1 = new int[rand.nextInt(30)];
-                    int[] arr2 = insertRandomValues(arr1);
-                    System.out.println(ArrayTest.print(arr2));
-                    arr2 = bubbleSort(arr2);                    //bubblesort
-                    System.out.println(ArrayTest.print(arr2));
-
-                }
-                break;
         }
     }
 
     //********** Easy Playa Metoder ***************
 
-    public static int[] insertRandomValues(int[] arr) {
+    private static int[] insertRandomValues(int[] arr) {
         Random rand = new Random();
         for (int i = 0; i < arr.length; i++) {
             arr[i] = rand.nextInt(arr.length);
@@ -58,7 +46,7 @@ public class ArrayTest {
         return arr;
     }
 
-    public static String print(int[] arr) {
+    private static String print(int[] arr) {
         String str = "";
         if (arr.length == 0) {
             return "{}";
@@ -74,15 +62,13 @@ public class ArrayTest {
     //*********************************************
 
     //************ MERGE *************
-    public static int[] mergeSort(int[] arr, int length) {
+    private static int[] mergeSort(int[] arr, int length) {
         if (length <= 1) {
             return arr;
         } else {
             int idx = length / 2;
             int[] leftArr = Arrays.copyOfRange(arr, 0, idx);
-            //System.out.println(ArrayTest.print(leftArr));
             int[] rightArr = Arrays.copyOfRange(arr, idx, arr.length);
-            //System.out.println(ArrayTest.print(rightArr));
             return merge(mergeSort(leftArr, leftArr.length), mergeSort(rightArr, rightArr.length));
         }
     }
@@ -93,7 +79,6 @@ public class ArrayTest {
 
         int merged = 0;
         int[] done = new int[(left.length + right.length)];
-        //System.out.println("Merge: " + ArrayTest.print(done));
 
         while (idxLeft < left.length && idxRight < right.length) {
             if (left[idxLeft] < right[idxRight]) {
@@ -121,7 +106,7 @@ public class ArrayTest {
 
     //***************** BUBBLE *******************
 
-    public static int[] bubbleSort(int[] arr) {
+    private static int[] bubbleSort(int[] arr) {
         if (arr.length <= 1) {
             return arr;
         }
@@ -142,18 +127,21 @@ public class ArrayTest {
 
     //*********************************************
 
-    //*************** INSERTION *****************
+    //*************** INSERTION ***************** #Obama doesnt approve mudda fuckkkakakakaka
 
-    public static int[] insertionSort(int[] arr) {
-        if (arr.length <= 1) {
-            return arr;
-        }
-        int[] retArr = new int[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
+    private static int[] insertionSort(int[] arr) {
+        for (int i = 1; i <= arr.length - 1; i++) {
             int j = i;
+            while (j > 0 && (arr[j - 1] > arr[j])) {
+                int tmp = arr[j-1];
+                arr[j] = arr[j-1];
+                arr[j-1] = tmp;
+            }
         }
+        return arr;
     }
+
+    //****************************************** //woot?!?
 }
 
 
