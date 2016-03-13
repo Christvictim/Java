@@ -11,13 +11,16 @@ public class Tests {
     public static void main(String[] args) {
         Random rand = new Random();
 
-        int test = 0;
+        int method = 3;             // 0: merge, 1: heap, 2: bubblesort, 3: insertionssort
+        int nbrTest = 3;          // amount of testarrays
+        int span = 30;              //random length of the arrays from 0 -> span
+        int idxSpan = 1000;         //random values in the array from 0 -> idxSpan
 
-        for (int i = 0; i < 5; i++) {
-            int[] arr1 = new int[rand.nextInt(30)];
-            int[] arr2 = insertRandomValues(arr1);
+        for (int i = 0; i < nbrTest; i++) {
+            int[] arr1 = new int[rand.nextInt(span)];
+            int[] arr2 = insertRandomValues(arr1, idxSpan);
             System.out.println(Tests.print(arr2));
-            switch (test) {
+            switch (method) {
                 case 0:
                     arr2 = mergeSort(arr2, arr2.length);            //mergesort
                     break;
@@ -32,16 +35,17 @@ public class Tests {
                     break;
             }
             System.out.println(Tests.print(arr2));
+            System.out.println();
 
         }
     }
 
     //********** Easy Playa Metoder ***************
 
-    private static int[] insertRandomValues(int[] arr) {
+    private static int[] insertRandomValues(int[] arr, int idxSpan) {
         Random rand = new Random();
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = rand.nextInt(arr.length);
+            arr[i] = rand.nextInt(idxSpan);
         }
         return arr;
     }
@@ -50,9 +54,11 @@ public class Tests {
         String str = "";
         if (arr.length == 0) {
             return "{}";
+        } else if(arr.length == 1){
+            return "{" + arr[0] + "}";
         } else {
             str += "{";
-            for (int i = 0; i < arr.length - 1; i++) {
+            for (int i = 0; i < arr.length - 2; i++) {
                 str += arr[i] + ", ";
             }
             str += arr[arr.length - 1] + "}";
@@ -127,21 +133,22 @@ public class Tests {
 
     //*********************************************
 
-    //*************** INSERTION ***************** #Obama doesnt approve mudda fuckkkakakakaka
+    //*************** INSERTION *****************
 
     private static int[] insertionSort(int[] arr) {
         for (int i = 1; i <= arr.length - 1; i++) {
             int j = i;
-            while (j > 0 && (arr[j - 1] > arr[j])) {
+            while ((j > 0) && ((arr[j] < arr[j-1]))) {
                 int tmp = arr[j-1];
-                arr[j] = arr[j-1];
-                arr[j-1] = tmp;
+                arr[j-1] = arr[j];
+                arr[j] = tmp;
+                j--;
             }
         }
         return arr;
     }
 
-    //****************************************** //woot?!?
+    //******************************************
 }
 
 
