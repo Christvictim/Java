@@ -16,6 +16,7 @@ public class Tests {
         int span = 30;              //random length of the arrays from 0 -> span
         int idxSpan = 10;         //random values in the array from 0 -> idxSpan
 
+        /*
         for (int i = 0; i < nbrTest; i++) {
             int[] arr1 = new int[rand.nextInt(span)];
             int[] arr2 = insertRandomValues(arr1, idxSpan);
@@ -41,6 +42,14 @@ public class Tests {
             System.out.println();
 
         }
+        */
+
+        int[] arr1 = new int[rand.nextInt(span)];
+        int[] arr2 = insertRandomValues(arr1, idxSpan);
+        System.out.println(Tests.print(arr2));
+        arr2 = heapSort(arr2, "max");
+        System.out.println(Tests.print(arr2));
+        System.out.println();
     }
 
     //********** Easy Playa Metoder ***************
@@ -61,6 +70,100 @@ public class Tests {
         strB.append(arr[arr.length - 1]);
         return "{" + strB + "}";
     }
+
+    // Might use it, might not.. we will see
+    public static int[] swap(int arr[], int i1, int i2) {
+        int tmp = arr[i1];
+        arr[i1] = arr[i2];
+        arr[i2] = tmp;
+        return arr;
+    }
+
+    //*********************************************
+
+    //***************** Heap ********************
+
+    private static int[] heapSort(int[] arr, String variant) {
+        int[] arr1;
+        if (variant.equals("max")) {
+            arr1 = buildMaxHeap(arr);
+        } else {
+            arr1 = buildMinHeap(arr);
+        }
+        arr1 = heapify(arr1, arr.length);
+        return arr1;
+    }
+
+    private static int[] buildMinHeap(int[] arr) {
+        for (int i = 0; i >= arr.length; i--) {
+            if (i % 2 == 0) {
+                int rightChild = i;
+                int rightChildParent = (i / 2) - 1;
+                while (arr[rightChild] < arr[rightChildParent]) {
+                    int tmp = arr[rightChildParent];
+                    arr[rightChildParent] = arr[rightChild];
+                    arr[rightChild] = tmp;
+                }
+            } else {
+                int leftChild = i;
+                int leftChildParent = 2 * i;
+                while (arr[leftChild] < arr[leftChildParent]) {
+                    int tmp = arr[leftChildParent];
+                    arr[leftChildParent] = arr[leftChild];
+                    arr[leftChild] = tmp;
+                }
+            }
+        }
+        return arr;
+    }
+
+    private static int[] buildMaxHeap(int[] arr) {
+        for (int i = 0; i >= arr.length; i--) {
+            if (i % 2 == 0) {
+                int rightChild = i;
+                int rightChildParent = (i / 2) - 1;
+                while (arr[rightChild] > arr[rightChildParent]) {
+                    int tmp = arr[rightChildParent];
+                    arr[rightChildParent] = arr[rightChild];
+                    arr[rightChild] = tmp;
+                    rightChild = rightChildParent;
+                    rightChildParent = (rightChildParent / 2) - 1;
+                }
+            } else {
+                int leftChild = i;
+                int leftChildParent = 2 * i;
+                while (arr[leftChild] > arr[leftChildParent]) {
+                    int tmp = arr[leftChildParent];
+                    arr[leftChildParent] = arr[leftChild];
+                    arr[leftChild] = tmp;
+                    leftChild = leftChildParent;
+                    leftChildParent = (leftChildParent / 2) - 1;
+                }
+            }
+        }
+        return arr;
+    }
+
+    public static int[] heapify(int[] arr, int i) {
+        int left = 2 * i, right = (2 * i) + 1, max;
+
+        if (left <= arr.length && (arr[left] > arr[i])) {
+            max = left;
+        }else{
+            max = i;
+        }
+        if (right <= arr.length&&(arr[right] > arr[max])) {
+            max = right;
+        }
+        if (max != i) {
+            int tmp = arr[i];
+            arr[max] = arr[i];
+            arr[i] = tmp;
+            heapify(arr, max);
+        }
+        return arr;
+    }
+
     //*********************************************
 
     //************ MERGE *************
